@@ -74,7 +74,6 @@ const server = createServer((req, res) => {
         headers: req.headers,
     };
     const sendResponse = async (payload) => {
-        buffer += decoder.end();
         const { statusCode, body } = await handler(payload, ctx);
         res.setHeader('Content-Type', 'application/json');
         res.writeHead(statusCode);
@@ -84,6 +83,7 @@ const server = createServer((req, res) => {
     // for bodyless methods don't wait for end event
     // just send response
     req.on('end', () => {
+        buffer += decoder.end();
         sendResponse(buffer);
     });
 });
