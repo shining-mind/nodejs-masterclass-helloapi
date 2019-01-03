@@ -12,7 +12,7 @@ const routes = require('./routes');
 const handlerResponseDecorator = (handler) => {
     return async (...args) => {
         try {
-            const payload = JSON.parse(args[0]);
+            const payload = args[0] !== '' ? JSON.parse(args[0]) : {};
             const ctx = args[1];
             const body = await handler.apply(this, [payload, ctx]);
             return {
