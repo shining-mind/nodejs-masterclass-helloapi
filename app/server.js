@@ -14,7 +14,6 @@ const handlerResponseDecorator = (handler) => {
         try {
             const payload = JSON.parse(args[0]);
             const ctx = args[1];
-            ctx.payload = payload;
             const body = await handler.apply(this, [payload, ctx]);
             return {
                 statusCode: 200,
